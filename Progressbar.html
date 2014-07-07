@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Progress bar form</title>
+</head>
+<body>
+	<h1>Registration Form</h1>
+	<progress max="100" value="0"></progress>
+	<form action="" method="POST">
+		<p><label>Name: <input type="text"  id="name" name="name" required></label></p>
+		<p><label>Email: <input type="mail"  id="email" name="email" required></label></p>
+		<p><label>Birthdate: <input type="date"  id="bday" name="bday" required></label></p>
+		<p><label>Number: <input type="number" pattern="[0-9]{10}"  id="num" name="num" required></label></p>
+		<p>Blood Type: <input  id="btype" name="btype" required list="blood-type" autocomplete="off">
+			<datalist id="blood-type">
+				<option value="A+"></option>
+				<option value="B+"></option>
+				<option value="AB+"></option>
+				<option value="A-"></option>
+				<option value="B-"></option>
+				<option value="O"></option>
+			</datalist></p>
+
+		<p><input type="submit"></p>
+	</form>
+
+	<script src="js/jquery.min.js"></script>
+
+	<script>
+
+	$(function() {
+
+		var numValid,
+			$input = $('form input[required]'),
+			$progress = $('progress'),
+			base = $progress.attr('max') / $input.length,
+			i;
+
+		$('form').keyup(function() {
+			numValid  = 0;
+			$input.each(function() {
+				if(this.validity.valid) numValid++;
+			});
+
+			for( i = 1; i <= $input.length; i++ ) {
+				if(numValid === i) {
+					$progress.attr('value', base * i);
+				}				
+			}
+		});
+	});
+	
+	</script>
+
+</body>
+</html>
